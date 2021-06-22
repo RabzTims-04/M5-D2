@@ -39,6 +39,7 @@ authorsRouter.post("/", (req,res)=>{
     }
 
     const { email } = req.body;
+    console.log(email);
     const emailExits = authors.find(author => author.email === email)
     
     if(emailExits){
@@ -57,7 +58,9 @@ authorsRouter.put("/:id", (req,res)=>{
 
     const authors = JSON.parse(fs.readFileSync(authorsJSONPath))
     const remainingAuthors = authors.filter(author => author._id !== req.params.id)
+    const author = authors.find(author => author._id === req.params.id)
     const modifiedAuthor = {
+        ...author,
         ...req.body,
         _id:req.params.id,
         updatedAt: new Date()
@@ -74,7 +77,7 @@ authorsRouter.delete("/:id", (req,res)=>{
     const authors = JSON.parse(fs.readFileSync(authorsJSONPath))
     const remainingAuthors = authors.filter(author => author._id !== req.params.id)
     fs.writeFileSync(authorsJSONPath, JSON.stringify(remainingAuthors))
-    res.status(204).send(`Author with id: ${req.params.id} is Deleted`)
+    res.send(`status:204, Author with id: ${req.params.id} is Deleted`)
 
 })
 
