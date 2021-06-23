@@ -1,1 +1,29 @@
-[{"name":"Rabz","surname":"tims","email":"rabztims04@strive.com","dateOfBirth":"20/20/2021","avatar":"https://ui-avatars.com/api/?name=Rabz+tims","_id":"3d3fro7ckq822g6i","createdAt":"2021-06-22T13:00:25.577Z"},{"name":"great","surname":"keeper","email":"gkjdfjks@strive.com","dateOfBirth":"20/20/2021","avatar":"https://ui-avatars.com/api/?name=great+keeper","_id":"3d3frhockq841fod","createdAt":"2021-06-22T13:55:37.500Z"},{"name":"Rabz","surname":"tims","email":"rabztims8655504@strive.com","dateOfBirth":"20/20/2021","avatar":"https://ui-avatars.com/api/?name=Rabz+tims","_id":"3d3frp1gkq85iq5e","createdAt":"2021-06-22T14:37:03.841Z"}]
+[
+  {
+    "name": "Rabz",
+    "surname": "tims",
+    "email": "rabztims04@strive.com",
+    "dateOfBirth": "20/20/2021",
+    "avatar": "https://ui-avatars.com/api/?name=Rabz+tims",
+    "_id": "3d3fro7ckq822g6i",
+    "createdAt": "2021-06-22T13:00:25.577Z"
+  },
+  {
+    "name": "great",
+    "surname": "keeper",
+    "email": "gkjdfjks@strive.com",
+    "dateOfBirth": "20/20/2021",
+    "avatar": "https://ui-avatars.com/api/?name=great+keeper",
+    "_id": "3d3frhockq841fod",
+    "createdAt": "2021-06-22T13:55:37.500Z"
+  },
+  {
+    "name": "Rabz",
+    "surname": "tims",
+    "email": "rabztims8655504@strive.com",
+    "dateOfBirth": "20/20/2021",
+    "avatar": "https://ui-avatars.com/api/?name=Rabz+tims",
+    "_id": "3d3frp1gkq85iq5e",
+    "createdAt": "2021-06-22T14:37:03.841Z"
+  }
+]
