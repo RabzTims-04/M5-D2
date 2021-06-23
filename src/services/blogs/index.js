@@ -54,7 +54,7 @@ blogsRouter.post('/',blogsValidation,(req,res, next)=>{
         const errors = validationResult(req)
 
         if(errors.isEmpty()){
-            const newBlog = {...req.body, _id: uniqid(), content:"HTML", createdAt: new Date()}
+            const newBlog = {...req.body, _id: uniqid(), createdAt: new Date()}
             const blogs = getBlogsArray()
             blogs.push(newBlog)
             writeBlogs(blogs)
