@@ -13,3 +13,8 @@ export const blogsValidation = [
     body("author.avatar").exists().withMessage("avatar should be a property of author").isURL().withMessage("avatar should be a url")
    
 ]
+
+export const blogsCommentsValidation =[
+    body("author").exists().withMessage('author name is mandatory').isString().withMessage("Author name should be a string"),
+    body("text").exists().withMessage('text Field is mandatory')
+]

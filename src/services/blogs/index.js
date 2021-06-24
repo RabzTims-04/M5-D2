@@ -2,7 +2,7 @@ import express from 'express'
 import uniqid from 'uniqid'
 import createError from "http-errors"
 import { validationResult } from 'express-validator'
-import { blogsValidation } from './validation.js'
+import { blogsValidation, blogsCommentsValidation } from './validation.js'
 import { getBlogs, writeBlogs } from "../../lib/fs-tools.js"
 
 const blogsRouter = express.Router()
@@ -35,6 +35,24 @@ blogsRouter.get('/:id',async (req,res, next)=>{
     }
 })
 
+/* GET single blog comment */
+blogsRouter.get('/:id/comments',async (req,res, next)=>{
+
+    try {
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        if(blog){
+            const blogComment = blog.comments
+            res.send(blogComment)
+        }
+        else{
+            next(createError(404, `Blog with id: ${req.params.id} not found`))
+        }        
+    } catch (error) {
+        next(error)
+    }
+})
+
 /* POST a blog */
 blogsRouter.post('/',blogsValidation,async (req,res, next)=>{
 
@@ -42,11 +60,37 @@ blogsRouter.post('/',blogsValidation,async (req,res, next)=>{
         const errors = validationResult(req)
 
         if(errors.isEmpty()){
-            const newBlog = {...req.body, _id: uniqid(), createdAt: new Date()}
+            const newBlog = {...req.body, _id: uniqid(), createdAt: new Date(), comments:[]}
             const blogs = await getBlogs()
             blogs.push(newBlog)
             await writeBlogs(blogs)
             res.status(201).send({_id: newBlog._id})
+        }
+        else{
+            next(createError(400, {errorsList: errors}))
+        }
+        
+    } catch (error) {
+        next(error)
+    }
+})
+
+/* POST a comment to a specific blog */
+ blogsRouter.post('/:id/comments',blogsCommentsValidation,async (req,res, next)=>{
+
+    try {
+        const errors = validationResult(req)
+
+        if(errors.isEmpty()){
+            const blogs = await getBlogs()
+            const blog = blogs.find(blog => blog._id === req.params.id)
+            if(blog){
+                const blogComment = blog.comments
+                const newComment = {...req.body, _id: uniqid(), createdAt: new Date()}
+                blogComment.push(newComment)
+                await writeBlogs(blogs)
+                res.status(201).send({_id: newComment._id})
+            }
         }
         else{
             next(createError(400, {errorsList: errors}))
