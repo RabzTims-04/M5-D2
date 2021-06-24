@@ -1,6 +1,9 @@
 import express from 'express'
 import uniqid from 'uniqid'
 import createError from "http-errors"
+import multer from "multer"
+import {extname} from "path"
+import { writeBlogsPicture, writeAuthorsPicture } from '../../lib/fs-tools.js'
 import { validationResult } from 'express-validator'
 import { blogsValidation, blogsCommentsValidation } from './validation.js'
 import { getBlogs, writeBlogs } from "../../lib/fs-tools.js"
@@ -95,6 +98,54 @@ blogsRouter.post('/',blogsValidation,async (req,res, next)=>{
         else{
             next(createError(400, {errorsList: errors}))
         }
+        
+    } catch (error) {
+        next(error)
+    }
+})
+
+/* POST a cover Image to a specific blog */
+ blogsRouter.post('/:id/uploadCover',multer().single("cover"),async (req,res, next)=>{
+
+    try { 
+        console.log(req.body);
+        const fileName = req.file.originalname.slice(-4)
+        const newFileName = req.params.id.concat(fileName)
+        const url = `http://localhost:3001/img/blogs/${req.params.id}${extname(req.file.originalname)}`
+        console.log(newFileName);
+        await writeBlogsPicture(newFileName, req.file.buffer)
+        console.log(url);
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        if(blog){
+            blog.cover = url
+            await writeBlogs(blogs)
+        }
+        res.send(blog.cover)      
+        
+    } catch (error) {
+        next(error)
+    }
+})
+
+/* POST a Profile Picture of author of a specific blog */
+blogsRouter.post('/:id/uploadAvatar',multer().single("avatar"),async (req,res, next)=>{
+
+    try { 
+        console.log(req.body);
+        const fileName = req.file.originalname.slice(-4)
+        const newFileName = req.params.id.concat(fileName)
+        const url = `http://localhost:3001/img/avatar/${req.params.id}${extname(req.file.originalname)}`
+        console.log(newFileName);
+        await writeAuthorsPicture(newFileName, req.file.buffer)
+        console.log(url);
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        if(blog){
+            blog.author.avatar = url
+            await writeBlogs(blogs)
+        }
+        res.send(blog.author.avatar)      
         
     } catch (error) {
         next(error)
