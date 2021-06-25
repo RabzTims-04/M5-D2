@@ -157,18 +157,36 @@ blogsRouter.put('/:id',blogsValidation,async (req,res, next)=>{
 
     try {
             const blogs = await getBlogs()
-            const remainingBlogs = blogs.filter(blog => blog._id !== req.params.id)
-            const blog = blogs.find(blog => blog._id === req.params.id)
+            const blogIndex = blogs.findIndex(blog=> blog._id === req.params.id)
+            console.log("index", blogIndex);
+            if(blogIndex !== -1){
+                let blog = blogs[blogIndex]
+
+                blog={
+                    ...blog,
+                    ...req.body,
+                     _id:req.params.id,
+                    updatedAt: new Date()
+                }
+                console.log("blog", blog);
+                blogs[blogIndex] = blog
+                console.log('BLOGS', blogs);
+            await writeBlogs(blogs)
+            res.send(blog) 
+            }else{
+                next(createError(400, {errorsList: "error"}))
+            }
+          /*   const remainingBlogs = blogs.filter(blog => blog._id !== req.params.id)
+             const blog = blogs.find(blog => blog._id === req.params.id) 
             const modifiedBlog = {
                 ...blog,
                 ...req.body,
                 _id:req.params.id,
                 updatedAt: new Date()
-            }
-            remainingBlogs.push(modifiedBlog)
-            await writeBlogs(remainingBlogs)
-            res.send(modifiedBlog)            
-            next(createError(400, {errorsList: "error"}))
+            } */
+            /* remainingBlogs.push(modifiedBlog) */
+                       
+           
       
     } catch (error) {
         next(error)
