@@ -15,6 +15,9 @@ filesRouter.post("/upload", multer({fileFilter:(req, file, next)=>{
 }).single('profilePic'), async (req, res, next)=>{
     try {
         console.log(req.file);
+       /*  const fileName = req.file.originalname.slice(-4)
+        const newFileName = "hello".concat(fileName)
+        console.log(newFileName); */
         await writeUsersPicture(req.file.originalname, req.file.buffer)
         res.send("image uploaded")
     } catch (error) {
