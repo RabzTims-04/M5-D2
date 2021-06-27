@@ -272,9 +272,10 @@ blogsRouter.delete('/:id/comments/:commentId',async (req,res, next)=>{
         if(blog){
             const blogComments = blog.comments
             const deleteComment = blogComments.findIndex(comment => comment._id === req.params.commentId)
+            res.send(blogComments[deleteComment])
             blogComments.splice(deleteComment,1)
             await writeBlogs(blogs)
-            res.status(200).send(`Comment with id: ${req.params.commentId} of blog with id: ${req.params.id} Deleted successfully!!`)        
+            res.status(200)      
         }
     } catch (error) {
         next(error)
