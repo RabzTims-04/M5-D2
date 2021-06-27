@@ -216,26 +216,36 @@ blogsRouter.put('/:id',blogsValidation,async (req,res, next)=>{
 
 /* PUT a comment to a specific blog */
 blogsRouter.put('/:id/comments/:commentId',blogsCommentsValidation,async (req,res, next)=>{
-
+    
     try {
-        const errors = validationResult(req)
-
-        if(errors.isEmpty()){
             const blogs = await getBlogs()
-            const blog = blogs.find(blog => blog._id === req.params.id)
-            if(blog){
-                const blogComment = blog.comments
-                const newComment = {...req.body, _id: uniqid(), createdAt: new Date()}
-                blogComment.push(newComment)
+            const blogIndex = blogs.findIndex(blog=> blog._id === req.params.id)
+            console.log("index", blogIndex);
+            if(blogIndex !== -1){
+                let blog = blogs[blogIndex]
+                let blogComments = blog.comments
+                console.log('blogComments',blogComments);
+                let blogCommentIndex = blogComments.findIndex(comment => comment._id === req.params.commentId)
+                console.log('blogCommentIndex', blogCommentIndex);
+                let editComment = blogComments[blogCommentIndex]
+                console.log('editComment', editComment);
+                console.log('commentbody', req.body);
+                editComment ={
+                    ...editComment,
+                    ...req.body,
+                    _id:req.params.commentId,
+                    updatedAt: new Date()
+                }
+                console.log('editComment', editComment);
+                
+                blogComments[blogCommentIndex] = editComment
                 await writeBlogs(blogs)
-                res.status(201).send({_id: newComment._id})
+                res.send(blog) 
             }
-        }
-        else{
-            next(createError(400, {errorsList: errors}))
-        }
-        
-    } catch (error) {
+            else{
+                next(createError(400, {errorsList: "error"}))
+            }        
+    }catch (error) {
         next(error)
     }
 })
@@ -263,8 +273,6 @@ blogsRouter.delete('/:id/comments/:commentId',async (req,res, next)=>{
             const blogComments = blog.comments
             const deleteComment = blogComments.findIndex(comment => comment._id === req.params.commentId)
             blogComments.splice(deleteComment,1)
-           /*  const remainingComments = blogComments.filter(comment => comment._id !== req.params.commentId)
-            blogComments.push(remainingComments) */
             await writeBlogs(blogs)
             res.status(200).send(`Comment with id: ${req.params.commentId} of blog with id: ${req.params.id} Deleted successfully!!`)        
         }
