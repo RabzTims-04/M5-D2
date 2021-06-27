@@ -38,7 +38,7 @@ blogsRouter.get('/:id',async (req,res, next)=>{
     }
 })
 
-/* GET single blog comment */
+/* GET single blog comments */
 blogsRouter.get('/:id/comments',async (req,res, next)=>{
 
     try {
@@ -50,6 +50,27 @@ blogsRouter.get('/:id/comments',async (req,res, next)=>{
         }
         else{
             next(createError(404, `Blog with id: ${req.params.id} not found`))
+        }        
+    } catch (error) {
+        next(error)
+    }
+})
+
+/* GET single blog sinle comment */
+blogsRouter.get('/:id/comments/:commentId',async (req,res, next)=>{
+
+    try {
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        if(blog){
+            const blogComments = blog.comments
+            if(blogComments){
+                const blogSingleComment = blogComments.find(comment => comment._id === req.params.commentId)
+                res.send(blogSingleComment)
+            }           
+        }
+        else{
+            next(createError(404, `Blog with id: ${req.params.id} or Comment with id: ${req.params.commentId} not found`))
         }        
     } catch (error) {
         next(error)
@@ -193,6 +214,42 @@ blogsRouter.put('/:id',blogsValidation,async (req,res, next)=>{
     }   
 })
 
+/* PUT a comment to a specific blog */
+blogsRouter.put('/:id/comments/:commentId',blogsCommentsValidation,async (req,res, next)=>{
+    
+    try {
+            const blogs = await getBlogs()
+            const blogIndex = blogs.findIndex(blog=> blog._id === req.params.id)
+            console.log("index", blogIndex);
+            if(blogIndex !== -1){
+                let blog = blogs[blogIndex]
+                let blogComments = blog.comments
+                console.log('blogComments',blogComments);
+                let blogCommentIndex = blogComments.findIndex(comment => comment._id === req.params.commentId)
+                console.log('blogCommentIndex', blogCommentIndex);
+                let editComment = blogComments[blogCommentIndex]
+                console.log('editComment', editComment);
+                console.log('commentbody', req.body);
+                editComment ={
+                    ...editComment,
+                    ...req.body,
+                    _id:req.params.commentId,
+                    updatedAt: new Date()
+                }
+                console.log('editComment', editComment);
+                
+                blogComments[blogCommentIndex] = editComment
+                await writeBlogs(blogs)
+                res.send(blog) 
+            }
+            else{
+                next(createError(400, {errorsList: "error"}))
+            }        
+    }catch (error) {
+        next(error)
+    }
+})
+
 /* DELETE a blog */
 blogsRouter.delete('/:id',async (req,res, next)=>{
 
@@ -201,6 +258,25 @@ blogsRouter.delete('/:id',async (req,res, next)=>{
         const remainingBlogs = blogs.filter(blog => blog._id !== req.params.id) 
         await writeBlogs(remainingBlogs)
         res.status(200).send(`blog with id: ${req.params.id} Deleted successfully!!`)        
+    } catch (error) {
+        next(error)
+    }
+})
+
+/* DELETE a blog comment */
+blogsRouter.delete('/:id/comments/:commentId',async (req,res, next)=>{
+
+    try {
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        if(blog){
+            const blogComments = blog.comments
+            const deleteComment = blogComments.findIndex(comment => comment._id === req.params.commentId)
+            res.send(blogComments[deleteComment])
+            blogComments.splice(deleteComment,1)
+            await writeBlogs(blogs)
+            res.status(200)      
+        }
     } catch (error) {
         next(error)
     }
