@@ -38,7 +38,7 @@ blogsRouter.get('/:id',async (req,res, next)=>{
     }
 })
 
-/* GET single blog comment */
+/* GET single blog comments */
 blogsRouter.get('/:id/comments',async (req,res, next)=>{
 
     try {
@@ -50,6 +50,27 @@ blogsRouter.get('/:id/comments',async (req,res, next)=>{
         }
         else{
             next(createError(404, `Blog with id: ${req.params.id} not found`))
+        }        
+    } catch (error) {
+        next(error)
+    }
+})
+
+/* GET single blog sinle comment */
+blogsRouter.get('/:id/comments/:commentId',async (req,res, next)=>{
+
+    try {
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        if(blog){
+            const blogComments = blog.comments
+            if(blogComments){
+                const blogSingleComment = blogComments.find(comment => comment._id === req.params.commentId)
+                res.send(blogSingleComment)
+            }           
+        }
+        else{
+            next(createError(404, `Blog with id: ${req.params.id} or Comment with id: ${req.params.commentId} not found`))
         }        
     } catch (error) {
         next(error)
@@ -193,6 +214,32 @@ blogsRouter.put('/:id',blogsValidation,async (req,res, next)=>{
     }   
 })
 
+/* PUT a comment to a specific blog */
+blogsRouter.put('/:id/comments/:commentId',blogsCommentsValidation,async (req,res, next)=>{
+
+    try {
+        const errors = validationResult(req)
+
+        if(errors.isEmpty()){
+            const blogs = await getBlogs()
+            const blog = blogs.find(blog => blog._id === req.params.id)
+            if(blog){
+                const blogComment = blog.comments
+                const newComment = {...req.body, _id: uniqid(), createdAt: new Date()}
+                blogComment.push(newComment)
+                await writeBlogs(blogs)
+                res.status(201).send({_id: newComment._id})
+            }
+        }
+        else{
+            next(createError(400, {errorsList: errors}))
+        }
+        
+    } catch (error) {
+        next(error)
+    }
+})
+
 /* DELETE a blog */
 blogsRouter.delete('/:id',async (req,res, next)=>{
 
@@ -201,6 +248,26 @@ blogsRouter.delete('/:id',async (req,res, next)=>{
         const remainingBlogs = blogs.filter(blog => blog._id !== req.params.id) 
         await writeBlogs(remainingBlogs)
         res.status(200).send(`blog with id: ${req.params.id} Deleted successfully!!`)        
+    } catch (error) {
+        next(error)
+    }
+})
+
+/* DELETE a blog comment */
+blogsRouter.delete('/:id/comments/:commentId',async (req,res, next)=>{
+
+    try {
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        if(blog){
+            const blogComments = blog.comments
+            const deleteComment = blogComments.findIndex(comment => comment._id === req.params.commentId)
+            blogComments.splice(deleteComment,1)
+           /*  const remainingComments = blogComments.filter(comment => comment._id !== req.params.commentId)
+            blogComments.push(remainingComments) */
+            await writeBlogs(blogs)
+            res.status(200).send(`Comment with id: ${req.params.commentId} of blog with id: ${req.params.id} Deleted successfully!!`)        
+        }
     } catch (error) {
         next(error)
     }

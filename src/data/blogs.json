@@ -3,23 +3,46 @@
     "category": "",
     "title": "World of Javascript",
     "cover": "http://localhost:3001/img/blogs/3d3frcekkq9tgz4v.gif",
-    "content": "<p>Hello, and thanks for visiting JavaScript World, where you'll find many resources that will help you learn and master JavaScript. We're your hosts, Tom Negrino and Dori Smith.</p><p>A useful resource you can find here are the scripts from our best-selling book,&nbsp;<em>JavaScript: Visual QuickStart Guide, Ninth Edition</em>, which you can get by clicking on the&nbsp;“download the scripts”&nbsp;link in the nav bar, above.</p>",
-    "readTime": { "value": "4", "unit": "minutes" },
+    "content": "<p>Hello, and thanks for visiting JavaScript World, where you'll find many resources that will help you learn and master JavaScript. We're your hosts, Tom Negrino and Dori Smith.</p><p>A useful resource you can find here are the scripts from our best-selling book,&nbsp;<em>JavaScript: Visual QuickStart Guide, Ninth Edition</em>, which you can get by clicking on the&nbsp;“download the scripts”&nbsp;link in the nav bar.</p><p>Hello, and thanks for visiting JavaScript World, where you'll find many resources that will help you learn and master JavaScript. We're your hosts, Tom Negrino and Dori Smith.</p><p>A useful resource you can find here are the scripts from our best-selling book,&nbsp;<em>JavaScript: Visual QuickStart Guide, Ninth Edition</em>, which you can get by clicking on the&nbsp;“download the scripts”&nbsp;link in the nav bar.</p><p>Hello, and thanks for visiting JavaScript World, where you'll find many resources that will help you learn and master JavaScript. We're your hosts, Tom Negrino and Dori Smith.</p><p>A useful resource you can find here are the scripts from our best-selling book,&nbsp;<em>JavaScript: Visual QuickStart Guide, Ninth Edition</em>, which you can get by clicking on the&nbsp;“download the scripts”&nbsp;link in the nav bar.</p><p>Hello, and thanks for visiting JavaScript World, where you'll find many resources that will help you learn and master JavaScript. We're your hosts, Tom Negrino and Dori Smith.</p><p>A useful resource you can find here are the scripts from our best-selling book,&nbsp;<em>JavaScript: Visual QuickStart Guide, Ninth Edition</em>, which you can get by clicking on the&nbsp;“download the scripts”&nbsp;link in the nav bar.</p><p>Hello, and thanks for visiting JavaScript World, where you'll find many resources that will help you learn and master JavaScript. We're your hosts, Tom Negrino and Dori Smith.</p><p>A useful resource you can find here are the scripts from our best-selling book,&nbsp;<em>JavaScript: Visual QuickStart Guide, Ninth Edition</em>, which you can get by clicking on the&nbsp;“download the scripts”&nbsp;link in the nav bar.</p><p>Hello, and thanks for visiting JavaScript World, where you'll find many resources that will help you learn and master JavaScript. We're your hosts, Tom Negrino and Dori Smith.</p><p>A useful resource you can find here are the scripts from our best-selling book,&nbsp;<em>JavaScript: Visual QuickStart Guide, Ninth Edition</em>, which you can get by clicking on the&nbsp;“download the scripts”&nbsp;link in the nav bar.</p>",
     "author": {
       "name": "Rabz",
       "avatar": "https://d9jhi50qo719s.cloudfront.net/9ee/samples/cu9_800.jpg"
     },
     "_id": "3d3frcekkq9tgz4v",
     "createdAt": "2021-06-23T18:35:19.134Z",
-    "updatedAt": "2021-06-23T21:56:29.352Z",
-    "comments": []
+    "updatedAt": "2021-06-27T12:38:18.065Z",
+    "comments": [
+      {
+        "author": "rabz",
+        "text": "loving it!",
+        "_id": "3d3fraickqf1iqr9",
+        "createdAt": "2021-06-27T10:19:29.396Z"
+      },
+      {
+        "author": "Tims",
+        "text": "I love this post",
+        "_id": "3d3fraickqf35tye",
+        "createdAt": "2021-06-27T11:05:26.246Z"
+      },
+      {
+        "author": "Rabz",
+        "text": "hiiiiii",
+        "_id": "3d3fraickqf39yo8",
+        "createdAt": "2021-06-27T11:08:38.984Z"
+      },
+      {
+        "author": "new author",
+        "text": "new comment",
+        "_id": "3d3freuwkqf4bael",
+        "createdAt": "2021-06-27T11:37:40.460Z"
+      }
+    ]
   },
   {
     "category": "",
     "title": "Why I love to code",
     "cover": "https://i2.wp.com/allhtaccess.info/wp-content/uploads/2018/03/programming.gif?fit=1281%2C716&ssl=1",
     "content": "<h2>Just like architecture, which is an art used by people daily and affects their everyday life, so is code. You can create something and people interact with, use, touch and work with. That is an amazing feeling.</h2>",
-    "readTime": { "value": "5", "unit": "minutes" },
     "author": {
       "name": "Stefano",
       "avatar": "https://www.fivesquid.com/pics/t2/1589106238-140595-3-1.jpg"
@@ -27,14 +50,20 @@
     "_id": "3d3frcekkq9up3kf",
     "createdAt": "2021-06-23T19:09:37.743Z",
     "updatedAt": "2021-06-23T22:00:19.781Z",
-    "comments": []
+    "comments": [
+      {
+        "author": "RabzTims",
+        "text": "I like this blog",
+        "_id": "3d3fraickqf3d3c8",
+        "createdAt": "2021-06-27T11:11:05.000Z"
+      }
+    ]
   },
   {
     "category": "Category4",
     "title": "Darth Vader",
     "cover": "http://localhost:3001/img/blogs/3d3fr8ikkqazwjn8.gif",
     "content": "<h2><span style=\"color: rgb(189, 193, 198); background-color: rgb(32, 33, 36);\">Discovered as a slave on Tatooine by Qui-Gon Jinn and Obi-Wan Kenobi, Anakin Skywalker had the potential to become one of the most powerful Jedi ever, and was believed by some to be the prophesied Chosen One who would bring balance to the Force.</span></h2>",
-    "readTime": { "value": "3", "unit": "minutes" },
     "author": {
       "name": "Riccardo",
       "avatar": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/72cd29df-61f1-4fd7-90b9-169bce5856cf/ddxxfar-bf04d72a-7590-4005-a964-847256382705.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzcyY2QyOWRmLTYxZjEtNGZkNy05MGI5LTE2OWJjZTU4NTZjZlwvZGR4eGZhci1iZjA0ZDcyYS03NTkwLTQwMDUtYTk2NC04NDcyNTYzODI3MDUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.IQmpResJw2bZmt-1_a-qkfn4SXUbAVYTyndtiBssLZU"
@@ -49,7 +78,6 @@
     "title": "Why coding is my Passion",
     "cover": "https://i.pinimg.com/originals/ef/2d/b0/ef2db0885d94fd149a4b7914923bb2a3.gif",
     "content": "<h2>In programming if you can consistently create a logic that interacts with the other parts of the computer and other applications you can make it happen. All you need to do after you thought it up is actually write it and presto a new thing is created into the world. That really feels like being a wizard.</h2><h2>Unlike physics where physical restraints are in everything you do, there are no limitations in coding besides your ability to think of a logically consistent solution. When writing an application you do not need to think about the strength of the material, what will happen when there is wear and tear or how you will reach an element to fix it 3 years down the road. It is virtual in a good sense and everything that comes with it.</h2>",
-    "readTime": { "value": "3", "unit": "minutes" },
     "author": {
       "name": "Diego Banovaz",
       "avatar": "https://cutewallpaper.org/21/anime-profile-pictures-boy/Original-Forum-Avatar-Profile-Photo-ID-165325-Avatar-.jpg"
@@ -64,12 +92,32 @@
         "createdAt": "2021-06-24T11:15:56.058Z"
       },
       {
-        "author": "rabz",
-        "text": "loving it!",
-        "_id": "3d3fr1rgkqat9dse",
-        "createdAt": "2021-06-24T11:17:11.054Z"
+        "author": "Tims",
+        "text": "Kool blog",
+        "_id": "3d3fraickqf3ce17",
+        "createdAt": "2021-06-27T11:10:32.203Z"
       }
     ],
     "updatedAt": "2021-06-25T13:30:38.718Z"
+  },
+  {
+    "category": "Category2",
+    "title": "test title",
+    "cover": "https://avatarfiles.alphacoders.com/896/thumb-89615.png",
+    "content": "<p>dfdsgfdgfdhgf</p>",
+    "author": {
+      "name": "test",
+      "avatar": "https://avatarfiles.alphacoders.com/896/thumb-89615.png"
+    },
+    "_id": "3d3frgvwkqf7yu87",
+    "createdAt": "2021-06-27T13:19:58.086Z",
+    "comments": [
+      {
+        "author": "test2",
+        "text": "test2",
+        "_id": "3d3frgvwkqf8470o",
+        "createdAt": "2021-06-27T13:24:07.944Z"
+      }
+    ]
   }
 ]
