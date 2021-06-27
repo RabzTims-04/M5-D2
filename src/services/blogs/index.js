@@ -132,7 +132,7 @@ blogsRouter.post('/',blogsValidation,async (req,res, next)=>{
         console.log(req.body);
         const fileName = req.file.originalname.slice(-4)
         const newFileName = req.params.id.concat(fileName)
-        const url = `http://localhost:3001/img/blogs/${req.params.id}${extname(req.file.originalname)}`
+        const url = `https://m5-blogpost.herokuapp.com/img/blogs/${req.params.id}${extname(req.file.originalname)}`
         console.log(newFileName);
         await writeBlogsPicture(newFileName, req.file.buffer)
         console.log(url);
@@ -156,7 +156,7 @@ blogsRouter.post('/:id/uploadAvatar',multer().single("avatar"),async (req,res, n
         console.log(req.body);
         const fileName = req.file.originalname.slice(-4)
         const newFileName = req.params.id.concat(fileName)
-        const url = `http://localhost:3001/img/avatar/${req.params.id}${extname(req.file.originalname)}`
+        const url = `https://m5-blogpost.herokuapp.com/img/avatar/${req.params.id}${extname(req.file.originalname)}`
         console.log(newFileName);
         await writeAuthorsPicture(newFileName, req.file.buffer)
         console.log(url);
