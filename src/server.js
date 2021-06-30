@@ -11,7 +11,7 @@ import filesRouter from './services/files/index.js'
 import { catchAllErrors, badRequestMiddleware, notFoundMiddleWare } from "./errorMiddlewares.js"
 import { getCurrentFolderPath } from "./lib/fs-tools.js"
 
-const {PORT} = process.env
+const PORT = process.env.PORT
 const server = express()
 const publicFolderPath = join(getCurrentFolderPath(import.meta.url), "../public")
 
