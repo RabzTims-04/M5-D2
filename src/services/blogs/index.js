@@ -7,8 +7,34 @@ import { writeBlogsPicture, writeAuthorsPicture } from '../../lib/fs-tools.js'
 import { validationResult } from 'express-validator'
 import { blogsValidation, blogsCommentsValidation } from './validation.js'
 import { getBlogs, writeBlogs } from "../../lib/fs-tools.js"
+import { generatePDFReadableStream } from "../../lib/pdf/index.js"
+import { pipeline } from 'stream'
+import striptags from 'striptags'
 
 const blogsRouter = express.Router()
+
+
+/* GET PDF files */
+blogsRouter.get("/:id/PDFDownload", async (req, res, next) =>{
+    try {
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        res.setHeader("Content-Disposition","attachment; filename = blog.pdf")
+        if(blog){
+            const content = striptags(blog.content)
+            const source = generatePDFReadableStream(blog.cover, blog.title,content)
+            const destination = res
+            pipeline(source, destination, err => {
+                if(err){
+                    next(err)
+                }
+            })
+        }   
+    } catch (error) {
+        console.log(error);
+        next(error)
+    }
+})
 
 /* GET All blogs */
 blogsRouter.get("/",async (req,res, next)=>{

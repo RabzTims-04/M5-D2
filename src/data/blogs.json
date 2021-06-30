@@ -102,5 +102,18 @@
         "createdAt": "2021-06-27T20:24:29.121Z"
       }
     ]
+  },
+  {
+    "category": "category 4",
+    "title": "I am title",
+    "cover": "https://landing-assets.pics.io/img/vcfd/cover.jpg",
+    "content": "<h2>nice content.</h2>",
+    "author": {
+      "name": "SMy name",
+      "avatar": "https://www.fivesquid.com/pics/t2/1589106238-140595-3-1.jpg"
+    },
+    "_id": "3d3frs9ckqjj3qc6",
+    "createdAt": "2021-06-30T13:42:46.805Z",
+    "comments": []
   }
 ]
