@@ -35,7 +35,7 @@ blogsRouter.get("/:id/PDFDownload", async (req, res, next) =>{
            /*  const base64 = response.data.toString("base64") */
             const base64Image = `data:image/${extension};base64,${base64}`
 
-            const source = await generatePDFReadableStream(base64Image, blog.title,content)
+            const source = await generatePDFReadableStream(blog.author, base64Image, blog.title,content)
             const destination = res
             pipeline(source, destination, err => {
                 if(err){
