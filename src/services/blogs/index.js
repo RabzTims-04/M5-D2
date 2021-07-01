@@ -2,6 +2,9 @@ import express from 'express'
 import uniqid from 'uniqid'
 import createError from "http-errors"
 import multer from "multer"
+import { v2 as cloudinary } from 'cloudinary'
+import { CloudinaryStorage } from 'multer-storage-cloudinary'
+import axios from 'axios'
 import {extname} from "path"
 import { writeBlogsPicture, writeAuthorsPicture } from '../../lib/fs-tools.js'
 import { validationResult } from 'express-validator'
@@ -22,11 +25,17 @@ blogsRouter.get("/:id/PDFDownload", async (req, res, next) =>{
         res.setHeader("Content-Disposition","attachment; filename = blog.pdf")
         if(blog){
             const content = striptags(blog.content)
-            /* const image = `../../../public/img/blogs/${req.params.id}.jpg` */
-            
-            const image = `C:/Users/rabbi/OneDrive/Desktop/FullStack/M5/M5-D2/src/data/images/${req.params.id}.png`
-           
-            const source = generatePDFReadableStream(image, blog.title,content)
+            const response = await axios.get(blog.cover,
+                {responseType:'arraybuffer'}
+                )
+            const blogCoverURLParts =  blog.cover.split('/')
+            const fileName = blogCoverURLParts[blogCoverURLParts.length-1]
+            const [id, extension] = fileName.split('.')
+            const base64 = Buffer.from(response.data).toString('base64')
+           /*  const base64 = response.data.toString("base64") */
+            const base64Image = `data:image/${extension};base64,${base64}`
+
+            const source = await generatePDFReadableStream(base64Image, blog.title,content)
             const destination = res
             pipeline(source, destination, err => {
                 if(err){
@@ -155,12 +164,30 @@ blogsRouter.post('/',blogsValidation,async (req,res, next)=>{
     }
 })
 
+/* *********************POST Image of product************************* */
+const cloudinaryStorage = new CloudinaryStorage({
+    cloudinary,
+    params:{
+        folder:"blogs"
+    }
+})
+
+const uploadOnCloudinary = multer({ storage: cloudinaryStorage}).single("cover")
+
 /* POST a cover Image to a specific blog */
- blogsRouter.post('/:id/uploadCover',multer().single("cover"),async (req,res, next)=>{
+ blogsRouter.post('/:id/uploadCover',uploadOnCloudinary,async (req,res, next)=>{
 
     try { 
         console.log(req.body);
-        const fileName = req.file.originalname.slice(-4)
+        const newBlog = {cover: req.file.path}
+        const url = newBlog.cover
+        const blogs = await getBlogs()
+        const blog = blogs.find(blog => blog._id === req.params.id)
+        if(blog){
+            blog.cover = url
+            await writeBlogs(blogs)
+        }
+        /* const fileName = req.file.originalname.slice(-4)
         const newFileName = req.params.id.concat(fileName)
         const url = `https://m5-blogpost.herokuapp.com/img/blogs/${req.params.id}${extname(req.file.originalname)}`
         console.log(newFileName);
@@ -173,6 +200,7 @@ blogsRouter.post('/',blogsValidation,async (req,res, next)=>{
             blog.cover = url
             await writeBlogs(blogs)
         }
+        */ 
         res.send(blog.cover)      
         
     } catch (error) {

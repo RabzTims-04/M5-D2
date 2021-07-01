@@ -7,6 +7,9 @@ export const generatePDFReadableStream = (img,data1,data2) => {
             bold:"Helvetica-bold",
             italics: "Helvetica-Oblique",
             bolditalics: "Helvetica-Oblique"
+        },
+        hello:{
+            normal:"src/lib/fonts/hello.ttf"
         }
     }
 
@@ -14,16 +17,25 @@ export const generatePDFReadableStream = (img,data1,data2) => {
 
     const docDefinition = {
         content:[
-            {
-                image: img,
-                width: 50,
-                height: 50
-            },
+           
+              {
+                  image:img,
+                  width:500
+              },
             
-                data1
+                {
+                    text:data1,
+                    fontSize: 24,
+                    font:"hello",
+                    alignment:"center",
+                    margin:[0,10,0,10]
+                }
             ,
             
-                 data2 
+                 {
+                   text:data2,
+                   lineHeight:2  
+                 }
             
         ]
     }
