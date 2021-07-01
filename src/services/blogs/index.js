@@ -22,7 +22,11 @@ blogsRouter.get("/:id/PDFDownload", async (req, res, next) =>{
         res.setHeader("Content-Disposition","attachment; filename = blog.pdf")
         if(blog){
             const content = striptags(blog.content)
-            const source = generatePDFReadableStream(blog.cover, blog.title,content)
+            /* const image = `../../../public/img/blogs/${req.params.id}.jpg` */
+            
+            const image = `C:/Users/rabbi/OneDrive/Desktop/FullStack/M5/M5-D2/src/data/images/${req.params.id}.png`
+           
+            const source = generatePDFReadableStream(image, blog.title,content)
             const destination = res
             pipeline(source, destination, err => {
                 if(err){
@@ -161,6 +165,7 @@ blogsRouter.post('/',blogsValidation,async (req,res, next)=>{
         const url = `https://m5-blogpost.herokuapp.com/img/blogs/${req.params.id}${extname(req.file.originalname)}`
         console.log(newFileName);
         await writeBlogsPicture(newFileName, req.file.buffer)
+        console.log(req.file.buffer);
         console.log(url);
         const blogs = await getBlogs()
         const blog = blogs.find(blog => blog._id === req.params.id)
